@@ -56,3 +56,20 @@ const result = highlightGleamCodegen(source, { engine });
 See the root repository fixtures and the canonical
 [`lib_codegen` contract](https://github.com/servicecute/gleam-workspace/blob/master/lib_codegen/docs/codegen-comment-syntax-highlighting-extension.md)
 for the supported annotation vocabulary.
+
+## Visual fixture
+
+Build the browser bundle and serve the repository root:
+
+```sh
+npm run visual:build
+cd ../..
+python3 -m http.server 4173
+```
+
+Open
+`http://127.0.0.1:4173/packages/highlight-js/test/visual.html` in Chrome.
+The fixture renders light and dark previews, exercises the theme toggle, and
+is intended for Chrome DevTools snapshot, screenshot, responsive viewport, and
+Lighthouse checks. The generated browser bundle is written to `dist/`, ignored,
+and is not part of the npm package.

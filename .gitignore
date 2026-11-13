@@ -6,3 +6,5 @@ build/
 coverage/
 .parcel-cache/
 .turbo/
+packages/highlight-js/test/visual.bundle.js
+packages/highlight-js/dist/

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Visual fixture for Gleam codegen Highlight.js annotations.">
+    <title>Gleam codegen Highlight.js visual fixture</title>
+    <style>
+      :root {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        color: #202124;
+        background: #f4f6f8;
+      }
+
+      body {
+        margin: 0;
+        padding: 2rem;
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      h1 {
+        font: 700 1.5rem/1.2 system-ui, sans-serif;
+        margin: 0;
+      }
+
+      p {
+        font: 0.95rem/1.5 system-ui, sans-serif;
+      }
+
+      button {
+        min-block-size: 2.5rem;
+        padding: 0.5rem 0.85rem;
+        border: 1px solid #8b95a5;
+        border-radius: 0.5rem;
+        color: inherit;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      button:focus-visible {
+        outline: 3px solid #0066cc;
+        outline-offset: 3px;
+      }
+
+      .previews {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .preview {
+        overflow: hidden;
+        border: 1px solid;
+        border-radius: 0.75rem;
+      }
+
+      .preview h2 {
+        margin: 0;
+        padding: 0.75rem 1rem;
+        font: 700 0.9rem/1.2 system-ui, sans-serif;
+      }
+
+      pre {
+        overflow: auto;
+        margin: 0;
+        padding: 1rem;
+        font-size: 0.82rem;
+        line-height: 1.65;
+      }
+
+      [data-theme="light"] {
+        color: #172033;
+        background: #ffffff;
+        border-color: #c8d0dc;
+      }
+
+      [data-theme="light"] .hljs-comment {
+        color: #52606d;
+      }
+
+      [data-theme="light"] .hljs-codegen-marker { color: #9c36b5; font-weight: 700; }
+      [data-theme="light"] .hljs-codegen-namespace { color: #0b7285; font-weight: 700; }
+      [data-theme="light"] .hljs-codegen-key { color: #1864ab; }
+      [data-theme="light"] .hljs-codegen-value { color: #6741d9; }
+      [data-theme="light"] .hljs-codegen-string { color: #237a36; }
+      [data-theme="light"] .hljs-codegen-number { color: #b23c00; }
+      [data-theme="light"] .hljs-codegen-field,
+      [data-theme="light"] .hljs-codegen-constructor { color: #c2255c; font-weight: 700; }
+
+      [data-theme="dark"] {
+        color: #e6edf3;
+        background: #161b22;
+        border-color: #484f58;
+      }
+
+      [data-theme="dark"] .hljs-comment {
+        color: #8b949e;
+      }
+
+      [data-theme="dark"] .hljs-codegen-marker { color: #ff7bda; font-weight: 700; }
+      [data-theme="dark"] .hljs-codegen-namespace { color: #56d4dd; font-weight: 700; }
+      [data-theme="dark"] .hljs-codegen-key { color: #79c0ff; }
+      [data-theme="dark"] .hljs-codegen-value { color: #d2a8ff; }
+      [data-theme="dark"] .hljs-codegen-string { color: #7ee787; }
+      [data-theme="dark"] .hljs-codegen-number { color: #ffa657; }
+      [data-theme="dark"] .hljs-codegen-field,
+      [data-theme="dark"] .hljs-codegen-constructor { color: #ffa198; font-weight: 700; }
+
+      @media (max-width: 760px) {
+        body { padding: 1rem; }
+        header { align-items: flex-start; flex-direction: column; }
+        .previews { grid-template-columns: 1fr; }
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "highlight.js/lib/core": "/packages/highlight-js/node_modules/highlight.js/lib/core.js",
+          "@gleam-lang/highlight.js-gleam": "/packages/highlight-js/node_modules/@gleam-lang/highlight.js-gleam/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>Gleam codegen annotation highlighting</h1>
+          <p>Visual fixture for the Highlight.js adapter and its semantic scopes.</p>
+        </div>
+        <button id="theme-toggle" type="button" aria-pressed="false">
+          Show dark preview only
+        </button>
+      </header>
+
+      <div class="previews">
+        <section class="preview" data-theme="light" aria-labelledby="light-title">
+          <h2 id="light-title">Light theme</h2>
+          <pre><code id="light-code" aria-label="Gleam codegen example in light theme"></code></pre>
+        </section>
+        <section class="preview" data-theme="dark" aria-labelledby="dark-title">
+          <h2 id="dark-title">Dark theme</h2>
+          <pre><code id="dark-code" aria-label="Gleam codegen example in dark theme"></code></pre>
+        </section>
+      </div>
+    </main>
+
+    <script type="module">
+      import { highlightGleamCodegen } from "../dist/visual.bundle.js";
+
+      const source = `/// @codegen json
+/// @rename_all camelCase
+/// @json content_key "data"
+/// @field user_id rename "userId"
+/// @field amount example 42
+/// This is **ordinary Markdown** and @not_codegen text.
+pub type Donation {
+  User(user_id: String, amount: Int)
+}`;
+
+      const html = highlightGleamCodegen(source).value;
+      document.querySelector("#light-code").innerHTML = html;
+      document.querySelector("#dark-code").innerHTML = html;
+
+      const toggle = document.querySelector("#theme-toggle");
+      toggle.addEventListener("click", () => {
+        const darkOnly = toggle.getAttribute("aria-pressed") === "true";
+        toggle.setAttribute("aria-pressed", String(!darkOnly));
+        toggle.textContent = darkOnly ? "Show dark preview only" : "Show both previews";
+        document.querySelector(".preview[data-theme=\"light\"]").hidden = !darkOnly;
+      });
+    </script>
+  </body>
+</html>

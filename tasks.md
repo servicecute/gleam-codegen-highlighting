@@ -53,12 +53,14 @@
 - [x] `REPO-2` Add repository README, package layout, and links to the canonical `lib_codegen` contract. *(completed 2026-11-13)*
 - [x] `HJ-1–HJ-7` Implement and test the Highlight.js adapter foundation. *(completed 2026-11-13)*
 - [x] `HJ-9` Document the Highlight.js package API, semantic scopes, and limitations. *(completed 2026-11-13)*
+- [x] `VIS-1` Add and inspect a Chrome DevTools visual fixture covering light mode, dark mode, responsive layout, and semantic scope visibility. *(completed 2026-11-13)*
 
 ## Agent Execution Board
 
 | task_id | priority | owner | target_date | dependencies | status |
 |---------|----------|-------|-------------|--------------|--------|
 | `HJ-1–HJ-7, HJ-9` | P1 | codex:gpt-5.6-luna | 2026-11-13 | `CONTRACT-1`, `CONTRACT-2` | completed |
+| `VIS-1` | P1 | codex:gpt-5.6-luna | 2026-11-13 | `HJ-1–HJ-7` | completed |
 
 ## History
 
