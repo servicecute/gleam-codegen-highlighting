@@ -1,0 +1,24 @@
+{
+  "name": "@servicecute/gleam-codegen-highlightjs",
+  "version": "0.1.0",
+  "description": "Highlight.js adapter for Gleam codegen annotations",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:watch": "node --test --watch"
+  },
+  "dependencies": {
+    "@gleam-lang/highlight.js-gleam": "^1.5.0",
+    "highlight.js": "^11.12.0"
+  },
+  "license": "MIT"
+}

@@ -10,10 +10,10 @@ is not installed.
 
 ## Status
 
-The repository is being bootstrapped. The canonical syntax contract and
-initial fixture corpus are maintained by
+The Highlight.js adapter is available as the first implementation slice. The
+canonical syntax contract and shared fixture corpus are maintained by
 [`lib_codegen`](https://github.com/servicecute/gleam-workspace/tree/master/lib_codegen).
-Adapters will be added here as their host contracts become clear.
+VS Code and Warp adapters remain planned.
 
 ## Goals
 
@@ -62,9 +62,9 @@ updated.
 
 ### Highlight.js
 
-An optional grammar layer for generated documentation and web pages. It should
-compose with the official Gleam grammar and add codegen scopes only inside
-recognized documentation comments.
+Available in [`packages/highlight-js`](packages/highlight-js) as
+`@servicecute/gleam-codegen-highlightjs`. It composes with the official Gleam
+grammar and adds codegen scopes only inside recognized documentation comments.
 
 ### VS Code
 
