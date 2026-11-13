@@ -1,4 +1,5 @@
 .DS_Store
+.agent-session-identity
 node_modules/
 dist/
 build/
